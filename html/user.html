@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="css/user.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/zhanghu.css">
+    <link rel="stylesheet" href="css/goods-info.css">
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <style>
+        body{
+            width: 1360px;
+            height: 1080px;
+
+        }
+        .head_right{
+            position: relative;
+            float: right;
+            height: 35px;
+            line-height: 35px;
+        }
+        .head_right .head_login{
+            padding: 0 160px;
+            margin: -32px 0;
+            height: 35px;
+            line-height: 35px;
+            float: right;
+            z-index: 99999999999999999999;
+
+        }
+        .head_right .head_login a:hover{
+            color: #ff552e;
+            cursor: pointer;
+        }
+        .head_right .bar_left{
+            float: right;
+            height: 35px;
+            line-height: 35px;
+            margin: -32px 300px;
+        }
+        .head_right .bar_left h2{
+            display: inline;
+            font-size: 12px;
+            color: #ff552e;
+            float: right;
+            line-height: 35px;
+            font-weight: 700;
+        }
+        .head_right .bar_left .head_Link{
+            float: right;
+            padding: 0 10px 0 28px;
+            background: url('img/topbar_icons.png') no-repeat 0 -164px;
+            line-height: 35px;
+        }
+        .head_right .bar_left .head_Link a:hover{
+            color: #ff552e;
+            cursor: pointer;
+        }
+    </style>
+    <title>用户中心</title>
+</head>
+<body>
+<div id="head_bar" class="head_bar">
+        <div class="head_left">
+            <ul class="layui-nav">
+                <li class="layui-nav-item">
+                    <a href="">个人中心</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">我的账户</a></dd>
+                        <dd><a href="">我的浏览</a></dd>
+                        <dd><a href="">我的求职</a></dd>
+                        <dd><a href="">举报中心</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-this">
+                    <a href="">商家中心</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">我的发布</a></dd>
+                        <dd><a href="">账户资料</a></dd>
+                        <dd><a href="">我的资金</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">帮助中心</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">客户帮助</a></dd>
+                        <dd><a href="">网站建议</a></dd>
+                        <dd><a href="">成为会员</a></dd>
+                        <dd><a href="">学习中心</a></dd>
+                        <dd><a href="">商户帮助</a></dd>
+                        <dd><a href="">渠道招商</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">联系客服</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">网站导航</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">房产</a></dd>
+                        <dd><a href="">二手</a></dd>
+                        <dd><a href="">宠物</a></dd>
+                        <dd><a href="">汽车</a></dd>
+                        <dd><a href="">招聘</a></dd>
+                        <dd><a href="">同城服务</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+
+</div>
+<script src="layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use('element', function(){
+        var element = layui.element;
+        element.on('nav(demo)', function(elem){
+            //console.log(elem)
+            layer.msg(elem.text());
+        });
+    });
+</script>
+<div class="head_right" >
+    <div class="head_login">
+        <span title="admin">admin</span><a href="" style="margin-left:6px" target="_self">退出</a>
+    </div>
+    <div class="bar_left">
+        <h2>广州</h2>
+        <div class="head_Link" >
+            <strong><a href="" target="_blank" >首页</a></strong>
+        </div>
+    </div>
+</div>
+
+<div class="header-guide">
+    <div class="header">
+        <img src="img/logo.png" alt="" onclick="window.open('')">
+        <ul class="header-ul" >
+            <li class="header-li"><a class="a1" href="" target="_self">个人中心</a></li>
+            <li><a class="a2" href="" target="_self">账户设置</a></li>
+            <li><a class="a3" href="" target="_self">我的资金</a></li>
+            <li><a class="a4" href="" target="_self">商家管理</a></li>
+        </ul>
+        <div class="search">
+            <form>
+                <div class="header-input" id="searchbar">
+			                        <span id="key">
+			                            <input type="text" id="keyword" name="key" class="header-input"
+                                               onblur="" placeholder="搜索" autocomplete="off"
+                                               onkeyup="";>
+			                        </span>
+                    <input type="submit" class="header-input-search-bt" id="searchbtn" value=""
+                           onclick="">
+                </div>
+            </form>
+            <a class="header-bt" href="" onclick="" target="_blank">发布信息</a>
+        </div>
+    </div>
+
+</div>
+<div>
+    <ul class="layui-nav layui-nav-tree" lay-filter="test">
+        <li class="b1"><a href=""><strong style="margin-left:16px;font-size: 16px">个人中心</strong></a></li>
+        <hr>
+        <li class="layui-nav-item "><a href="" style="font-size: 13px;">我的发布</a></li>
+        <li class="layui-nav-item "><a href="" style="font-size: 13px;">我的收藏</a></li>
+        <li class="layui-nav-item "><a href="" style="font-size: 13px;">我的浏览</a></li>
+        <li class="layui-nav-item "><a href="" style="font-size: 13px;">我的评价</a></li>
+        <li class="layui-nav-item "><a href="" style="font-size: 13px;">帮助中心</a></li>
+        <hr>
+        <li class="b2"><a href=""><strong style="margin-left:16px;font-size: 16px">账户设置</strong></a></li>
+        <hr>
+        <li class="layui-nav-item"><a href="" style="font-size: 13px;">个人资料</a></li>
+        <li class="layui-nav-item"><a href="" style="font-size: 13px;">账号绑定</a></li>
+        <li class="layui-nav-item"><a href="" style="font-size: 13px;">密码设置</a></li>
+        <li class="layui-nav-item"><a href="" style="font-size: 13px;">认证设置</a></li>
+        <hr>
+        <li class="b3"><a href=""><strong style="margin-left:16px;font-size: 16px">推广中心</strong></a><i class="icon"></i></li>
+        <hr>
+    </ul>
+
+</div>
+
+<div class="left-side-zu">
+    <a href=""><img src="img/default.png" class="left-side-img" alt="" width="86px"; height="86px";></a>
+    <div class="user-info">
+        <a href="" class="user-name" onclick="">admin</a>
+        <a href="" >消息(<span id="msg"><pp>0</pp></span>)</a>
+    </div>
+    <br>
+    <br>
+    <div class="user-link">
+        <div class="user-limit-p">
+            <a href="" onclick="">
+                <span class="user-limit-img"></span>
+                <span class="user-limit-mb">189****4365</span></a>
+        </div>
+        <div class="user-limit-d">
+            <a href="" onclick=""><span class="user-limit-email"></span></a>
+        </div>
+        <div class="user-limit-w">
+            <a href="" onclick=""><span class="user-limit-weixin"></span></a>
+        </div>
+        <div class="user-limit-q">
+            <a href="" onclick=""><span class="user-limit-qq"></span></a>
+        </div>
+        <div class="user-limit-b">
+            <a href="" onclick=""><span class="user-limit-weibo"></span></a>
+        </div>
+    </div>
+
+
+</div>
+
+<div>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">最近发布信息</li>
+            <li>我浏览过的信息</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 480px;">
+            <div class="layui-tab-item layui-show" >
+                <div class="big-goods" >
+                    <p class="info">信息号：25312017722307</p>
+                    <div class="goods-info">
+                        <div class="goods-left">
+                            <img src="img/goods.jpg" alt="">
+                            <ul class="goods-ul">
+                                <li><h6>卡西欧 G-SHOCK电子表G5600A 200米 防水 太阳能电力</h6></li>
+                                <li><p>2016-05-27 23:43</p></li>
+                                <li>广州·二手市场·服装/鞋帽/精包</li>
+                            </ul>
+                        </div>
+                        <div class="goods-right">
+                            <ul>
+                                <li><a href="" class="c1">个人删除</a></li>
+                            </ul>
+                            <div class="goods-right-link">
+                                <ul>
+                                    <li><a href="">彻底删除</a></li>
+                                    <li><a href="">恢复</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div id="demo0"></div>-->
+<script>
+    layui.use('element', function(){
+        var $ = layui.jquery
+            ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+        //触发事件
+        var active = {
+            tabAdd: function(){
+                //新增一个Tab项
+                element.tabAdd('demo', {
+                    title: '新选项'+ (Math.random()*1000|0) //用于演示
+                    ,content: '内容'+ (Math.random()*1000|0)
+                    ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                })
+            }
+            ,tabDelete: function(othis){
+                //删除指定Tab项
+                element.tabDelete('demo', '44'); //删除：“商品管理”
+
+
+                othis.addClass('layui-btn-disabled');
+            }
+            ,tabChange: function(){
+                //切换到指定Tab项
+                element.tabChange('demo', '22'); //切换到：用户管理
+            }
+        };
+
+        $('.site-demo-active').on('click', function(){
+            var othis = $(this), type = othis.data('type');
+            active[type] ? active[type].call(this, othis) : '';
+        });
+
+        //Hash地址的定位
+        var layid = location.hash.replace(/^#test=/, '');
+        element.tabChange('test', layid);
+
+        element.on('tab(test)', function(elem){
+            location.hash = 'test='+ $(this).attr('lay-id');
+        });
+
+    });
+</script>
+
+
+<script>
+    layui.use(['laypage', 'layer'], function(){
+        var laypage = layui.laypage
+            ,layer = layui.layer;
+
+        //总页数低于页码总数
+        laypage.render({
+            elem: 'demo0'
+            ,count: 50 //数据总数
+        });
+
+        //调用分页
+        laypage.render({
+            elem: 'demo20'
+            ,count: data.length
+            ,jump: function(obj){
+                //模拟渲染
+                document.getElementById('biuuu_city_list').innerHTML = function(){
+                    var arr = []
+                        ,thisData = data.concat().splice(obj.curr*obj.limit - obj.limit, obj.limit);
+                    layui.each(thisData, function(index, item){
+                        arr.push('<li>'+ item +'</li>');
+                    });
+                    return arr.join('');
+                }();
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>

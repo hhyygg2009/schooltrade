@@ -1,0 +1,89 @@
+*{
+	margin: 0 auto;
+	padding: 0 auto;
+	text-decoration: none;
+	color: black;
+}
+.classify{
+	width: 800px;
+	height: 50px;
+	background-color:#fffefa;
+	border-radius: 10px;
+	box-shadow: #A9A9A9;
+}
+.classify ul{
+	line-height: 50px;
+}
+.classify ul li{
+	float: left;
+	text-align: 50px;
+	list-style: none;
+}
+.classify ul li a{
+	margin: 0 45px;
+}
+.classify ul li a:hover{
+	color: red;
+}
+.search{
+	margin-top: 30px;
+	width: 800px;
+	background-color: aquamarine;
+}
+.search form input{
+	float: left;
+}
+.search .searchbtn{
+	width: 180px; 
+	height: 46px;
+	background-color: orangered; 
+	color: white;
+	font-size: 18px;
+	border: none
+}
+.shelves{
+	margin: 30px auto;
+	clear: both;
+	width: 1140px;
+	height: 1600px;
+}
+.shelves .goods{
+	margin: 10px;
+	padding: 0;
+	width: 260px;
+	height: 360px;
+	float: left;
+	border: solid 1px darkgrey;
+}
+.shelves .goods:hover{
+	margin: 10px;
+	padding: 0;
+	width: 260px;
+	height: 360px;
+	float: left;
+	border: solid 1px red;
+}
+.shelves .goods .item{
+	padding: 20px;
+}
+.shelves .goods .item .goodstu{
+	width: 220px;
+	height: 220px;
+}
+.shelves .goods .item .user{
+	margin-bottom: 5px;
+	width: 220px;
+}
+.shelves .goods .item .user .touxiang{
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	float: left;
+	margin-right: 10px;
+}
+.shelves .goods .item .info{
+	width: 220px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
