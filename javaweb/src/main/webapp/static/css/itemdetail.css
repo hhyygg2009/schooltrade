@@ -1,0 +1,27 @@
+
+#carousel img {
+    width: 100%;
+    height: 100%;
+}
+
+.iteminfo {
+    margin: 50px;
+}
+
+.iteminfo td, .iteminfo tr {
+    padding: 10px;
+    /*border: 1px solid ;*/
+}
+
+.imgbox {
+    /*float: left;*/
+
+
+}
+
+.imgbox img {
+    float: left;
+    width: 300px;
+    margin: 10px;
+
+}
