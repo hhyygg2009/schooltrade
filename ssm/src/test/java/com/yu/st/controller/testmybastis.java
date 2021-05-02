@@ -1,3 +1,5 @@
+package com.yu.st.controller;
+
 import com.yu.st.dao.UserDao;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

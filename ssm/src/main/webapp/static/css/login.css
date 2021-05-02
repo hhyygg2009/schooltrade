@@ -1,0 +1,65 @@
+/* CSS Document */
+body {
+    background: url("/static/img/reg-bg.png") no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.login-box {
+    margin: 100px 50px;
+}
+
+.Login-password {
+    width: 205%;
+}
+
+.main {
+    border-radius: 5px;
+    padding: 50px 50px 200px 50px;
+    margin: 0 auto;
+    height: auto;
+    width: 500px;
+    background: #EEE;
+}
+
+.top-png {
+    background: #000;
+    height: 106px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.top-title {
+    height: 28px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.top-title span {
+    height: 56px;
+    line-height: 56px;
+    margin: 0 auto;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 40px;
+}
+
+.code-box {
+    width: 76%;
+    float: left;
+}
+
+.code-box input {
+    width: 100%;
+}
+
+.code-box button {
+    display: inline;
+}
+
+#code{
+    margin-left: 5px;
+    margin-top: 2px;
+}

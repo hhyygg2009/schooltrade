@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yu.st.dao.ReplyDao">
+    <resultMap id="BaseResultMap" type="com.yu.st.bean.Reply">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="reply_type" jdbcType="INTEGER" property="replyType"/>
+        <result column="comment_id" jdbcType="INTEGER" property="commentId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, user_id, reply_type, comment_id, content
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from reply
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from reply
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yu.st.bean.Reply" useGeneratedKeys="true">
+        insert into reply (user_id, reply_type, comment_id,
+                           content)
+        values (#{userId,jdbcType=INTEGER}, #{replyType,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER},
+                #{content,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yu.st.bean.Reply"
+            useGeneratedKeys="true">
+        insert into reply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="replyType != null">
+                reply_type,
+            </if>
+            <if test="commentId != null">
+                comment_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="replyType != null">
+                #{replyType,jdbcType=INTEGER},
+            </if>
+            <if test="commentId != null">
+                #{commentId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.yu.st.bean.Reply">
+        update reply
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="replyType != null">
+                reply_type = #{replyType,jdbcType=INTEGER},
+            </if>
+            <if test="commentId != null">
+                comment_id = #{commentId,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yu.st.bean.Reply">
+        update reply
+        set user_id    = #{userId,jdbcType=INTEGER},
+            reply_type = #{replyType,jdbcType=INTEGER},
+            comment_id = #{commentId,jdbcType=INTEGER},
+            content    = #{content,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

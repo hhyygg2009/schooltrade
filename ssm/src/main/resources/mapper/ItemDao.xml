@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yu.st.dao.ItemDao">
+    <resultMap id="BaseResultMap" type="com.yu.st.bean.Item">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="info" jdbcType="VARCHAR" property="info"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createtime"/>
+        <result column="state_id" jdbcType="INTEGER" property="stateId"/>
+        <result column="category_id" jdbcType="INTEGER" property="categoryId"/>
+        <result column="conditions_id" jdbcType="INTEGER" property="conditionsId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="pic1" jdbcType="VARCHAR" property="pic1"/>
+        <result column="pic2" jdbcType="VARCHAR" property="pic2"/>
+        <result column="pic3" jdbcType="VARCHAR" property="pic3"/>
+
+        <association property="user" javaType="com.yu.st.bean.User">
+            <id column="user_id" jdbcType="INTEGER" property="id"/>
+            <result column="username" jdbcType="VARCHAR" property="username"/>
+            <result column="password" jdbcType="VARCHAR" property="password"/>
+            <result column="flag" jdbcType="INTEGER" property="flag"/>
+            <result column="phone" jdbcType="VARCHAR" property="phone"/>
+            <result column="regtime" jdbcType="TIMESTAMP" property="regtime"/>
+            <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+            <result column="sex" jdbcType="INTEGER" property="sex"/>
+
+        </association>
+        <association property="category" javaType="com.yu.st.bean.Category">
+            <id column="category_id" jdbcType="INTEGER" property="id"/>
+            <result column="categoryname" jdbcType="VARCHAR" property="name"/>
+        </association>
+        <association property="condition" javaType="com.yu.st.bean.Condition">
+            <id column="conditions_id" jdbcType="INTEGER" property="id"/>
+            <result column="conditionsname" jdbcType="VARCHAR" property="name"/>
+        </association>
+        <association property="state" javaType="com.yu.st.bean.State">
+            <id column="state_id" jdbcType="INTEGER" property="id"/>
+            <result column="statename" jdbcType="VARCHAR" property="name"/>
+        </association>
+        <!--        <collection property="comment" ofType="com.yu.st.bean.Comment" column="id"-->
+        <!--                    select="com.yu.st.dao.CommentDao.selectByItemId"/>-->
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, `name`, price, info, createTime, state_id, category_id, conditions_id, user_id,
+    pic1, pic2, pic3
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select item.*,
+               user.*,
+               conditions.name conditionsname,
+               category.name   categoryname,
+               state.name      statename
+        from item,
+             user,
+             conditions,
+             category,
+             state
+        where item.id = #{id,jdbcType=INTEGER}
+          and item.user_id = user.id
+          and item.category_id = category.id
+          and item.conditions_id = conditions.id
+          and item.state_id = state.id
+    </select>
+
+    <select id="getAllItem" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select item.*,
+               user.*,
+               conditions.name conditionsname,
+               category.name   categoryname,
+               state.name      statename
+        from item,
+             user,
+             conditions,
+             category,
+             state
+        where item.user_id = user.id
+          and item.category_id = category.id
+          and item.conditions_id = conditions.id
+          and item.state_id = state.id
+        order by item.id desc
+        limit #{start},#{limit}
+
+    </select>
+    <select id="selectByKeyword" resultMap="BaseResultMap">
+        select item.*,
+               user.*,
+               conditions.name conditionsname,
+               category.name   categoryname,
+               state.name      statename
+        from item,
+             user,
+             conditions,
+             category,
+             state
+        where item.name like concat('%', #{keyword}, '%')
+          and item.user_id = user.id
+          and item.category_id = category.id
+          and item.conditions_id = conditions.id
+          and item.state_id = state.id
+
+        order by item.id desc
+    </select>
+
+    <select id="selectByKeywordcount" resultType="integer">
+        select count(*) as count
+        from item,
+             user,
+             conditions,
+             category,
+             state
+        where item.name like concat('%', #{keyword}, '%')
+          and item.user_id = user.id
+          and item.category_id = category.id
+          and item.conditions_id = conditions.id
+          and item.state_id = state.id
+
+    </select>
+
+
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select item.*,
+               user.*,
+               conditions.name conditionsname,
+               category.name   categoryname,
+               state.name      statename
+        from item,
+             user,
+             conditions,
+             category,
+             state
+        where item.user_id = #{id,jdbcType=INTEGER}
+          and item.user_id = user.id
+          and item.category_id = category.id
+          and item.conditions_id = conditions.id
+          and item.state_id = state.id
+        order by item.id desc
+        limit #{start},#{limit}
+    </select>
+
+    <select id="selectByUserIdcount" parameterType="java.lang.Integer" resultType="integer">
+        select count(*) as count
+        from item,
+             user,
+             conditions,
+             category,
+             state
+        where item.user_id = #{id,jdbcType=INTEGER}
+          and item.user_id = user.id
+          and item.category_id = category.id
+          and item.conditions_id = conditions.id
+          and item.state_id = state.id
+    </select>
+
+    <select id="selectAllCount" resultType="java.lang.Integer">
+        select count(*)
+        from item
+        order by item.id desc
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from item
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yu.st.bean.Item" useGeneratedKeys="true">
+        insert into item (`name`, price, info,
+                          createTime, state_id, category_id,
+                          conditions_id, user_id, pic1,
+                          pic2, pic3)
+        values (#{name,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{info,jdbcType=VARCHAR},
+                #{createtime,jdbcType=TIMESTAMP}, #{stateId,jdbcType=INTEGER}, #{categoryId,jdbcType=INTEGER},
+                #{conditionsId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{pic1,jdbcType=VARCHAR},
+                #{pic2,jdbcType=VARCHAR}, #{pic3,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yu.st.bean.Item"
+            useGeneratedKeys="true">
+        insert into item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                `name`,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="info != null">
+                info,
+            </if>
+            <if test="createtime != null">
+                createTime,
+            </if>
+            <if test="stateId != null">
+                state_id,
+            </if>
+            <if test="categoryId != null">
+                category_id,
+            </if>
+            <if test="conditionsId != null">
+                conditions_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="pic1 != null">
+                pic1,
+            </if>
+            <if test="pic2 != null">
+                pic2,
+            </if>
+            <if test="pic3 != null">
+                pic3,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="info != null">
+                #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stateId != null">
+                #{stateId,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null">
+                #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="conditionsId != null">
+                #{conditionsId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="pic1 != null">
+                #{pic1,jdbcType=VARCHAR},
+            </if>
+            <if test="pic2 != null">
+                #{pic2,jdbcType=VARCHAR},
+            </if>
+            <if test="pic3 != null">
+                #{pic3,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateItem" parameterType="com.yu.st.bean.Item">
+        update item
+        <set>
+            <if test="name != null">
+                `name` = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="info != null">
+                info = #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createTime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="stateId != null">
+                state_id = #{stateId,jdbcType=INTEGER},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId,jdbcType=INTEGER},
+            </if>
+            <if test="conditionsId != null">
+                conditions_id = #{conditionsId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="pic1 != null">
+                pic1 = #{pic1,jdbcType=VARCHAR},
+            </if>
+            <if test="pic2 != null">
+                pic2 = #{pic2,jdbcType=VARCHAR},
+            </if>
+            <if test="pic3 != null">
+                pic3 = #{pic3,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.yu.st.bean.Item">
+        update item
+        set `name`        = #{name,jdbcType=VARCHAR},
+            price         = #{price,jdbcType=DECIMAL},
+            info          = #{info,jdbcType=VARCHAR},
+            createTime    = #{createtime,jdbcType=TIMESTAMP},
+            state_id      = #{stateId,jdbcType=INTEGER},
+            category_id   = #{categoryId,jdbcType=INTEGER},
+            conditions_id = #{conditionsId,jdbcType=INTEGER},
+            user_id       = #{userId,jdbcType=INTEGER},
+            pic1          = #{pic1,jdbcType=VARCHAR},
+            pic2          = #{pic2,jdbcType=VARCHAR},
+            pic3          = #{pic3,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+</mapper>

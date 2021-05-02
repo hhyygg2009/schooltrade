@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 加载properties文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties"/>
+    </bean>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+    </bean>
+
+    <!-- mybatis和spring完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 扫描model包 -->
+        <property name="typeAliasesPackage" value="com.yu.st.bean"/>
+        <!-- 扫描sql配置文件:mapper需要的xml文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!-- Mapper动态代理开发，扫描dao接口包-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 注入sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!-- 给出需要扫描Dao接口包 -->
+        <property name="basePackage" value="com.yu.st.dao"/>
+    </bean>
+
+    <!-- 事务管理 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!--数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+    </bean>
+
+    <!--    &lt;!&ndash;  事务配置 &ndash;&gt;-->
+    <!--    &lt;!&ndash; 代表控制事务实际操作的类,进行打开事务,提交事务,出错的时候回滚事务 &ndash;&gt;-->
+    <!--    <bean id="txManager"-->
+    <!--          class="org.springframework.jdbc.datasource.DataSourceTransactionManager"-->
+    <!--          p:dataSource-ref="dataSource"-->
+    <!--    />-->
+    <!--    &lt;!&ndash; 相当于我们自己编的切面的类 LogErr 环绕通知 &ndash;&gt;-->
+    <!--    <tx:advice id="txAdvice" transaction-manager="txManager">-->
+    <!--        <tx:attributes>-->
+    <!--            <tx:method name="add*" read-only="false" propagation="REQUIRED" />-->
+    <!--            <tx:method name="edit*" read-only="false" propagation="REQUIRED" />-->
+    <!--            <tx:method name="update*" read-only="false" propagation="REQUIRED" />-->
+    <!--            <tx:method name="del*" read-only="false" propagation="REQUIRED" />-->
+    <!--            <tx:method name="*" read-only="true" propagation="REQUIRED" />-->
+    <!--        </tx:attributes>-->
+    <!--    </tx:advice>-->
+    <!--    <aop:config>-->
+    <!--        <aop:pointcut expression="execution(public * com.yu.st.service.*.*(..))" id="pt-tx" />-->
+    <!--        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt-tx" />-->
+    <!--    </aop:config>-->
+
+</beans>

@@ -8,24 +8,24 @@
         <setting name="cacheEnabled" value="false"/><!-- 关闭二级缓存 -->
         <setting name="localCacheScope" value="STATEMENT"/><!-- 相当于关闭一级缓存 -->
     </settings>
-<!--    <environments default="development">-->
-<!--        <environment id="development">-->
-<!--            <transactionManager type="JDBC"/>-->
-<!--            <dataSource type="POOLED">-->
-<!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
-<!--                <property name="url" value="jdbc:mysql://localhost:3306/schooltrade?serverTimezone=UTC"/>-->
-<!--                <property name="username" value="root"/>-->
-<!--                <property name="password" value="233333"/>-->
-<!--            </dataSource>-->
-<!--        </environment>-->
-<!--    </environments>-->
-<!--    <mappers>-->
-<!--        <mapper resource="mapper/IUserDao.xml"/>-->
-<!--        <mapper resource="mapper/iItemDao.xml"/>-->
-<!--        <mapper resource="mapper/CategoryDao.xml"/>-->
-<!--        <mapper resource="mapper/ConditionsDao.xml"/>-->
-<!--        <mapper resource="mapper/StateDao.xml"/>-->
-<!--        <mapper resource="mapper/CommentDao.xml"/>-->
+    <!--    <environments default="development">-->
+    <!--        <environment id="development">-->
+    <!--            <transactionManager type="JDBC"/>-->
+    <!--            <dataSource type="POOLED">-->
+    <!--                <property name="driver" value="com.mysql.jdbc.Driver"/>-->
+    <!--                <property name="url" value="jdbc:mysql://localhost:3306/schooltrade?serverTimezone=UTC"/>-->
+    <!--                <property name="username" value="root"/>-->
+    <!--                <property name="password" value="233333"/>-->
+    <!--            </dataSource>-->
+    <!--        </environment>-->
+    <!--    </environments>-->
+    <!--    <mappers>-->
+    <!--        <mapper resource="mapper/IUserDao.xml"/>-->
+    <!--        <mapper resource="mapper/iItemDao.xml"/>-->
+    <!--        <mapper resource="mapper/CategoryDao.xml"/>-->
+    <!--        <mapper resource="mapper/ConditionsDao.xml"/>-->
+    <!--        <mapper resource="mapper/StateDao.xml"/>-->
+    <!--        <mapper resource="mapper/CommentDao.xml"/>-->
 
-<!--    </mappers>-->
+    <!--    </mappers>-->
 </configuration>

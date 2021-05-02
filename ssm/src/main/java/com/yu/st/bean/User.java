@@ -1,7 +1,8 @@
-package com.yu.st.entity;
+package com.yu.st.bean;
 
 import com.yu.st.util.MD5;
 import lombok.Data;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -13,6 +14,7 @@ import java.util.List;
  * @author
  */
 @Data
+@Component
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,11 +40,11 @@ public class User implements Serializable {
      */
     private Integer sex;
 
-    public Boolean checkUser(){
+    public Boolean checkUser() {
         return username != null && password != null;
     }
 
-    public void encryptionPassword(){
+    public void encryptionPassword() {
         password = MD5.generateCode(password);
     }
 

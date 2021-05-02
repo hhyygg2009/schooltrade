@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yu.st.dao.UserDao">
-    <resultMap id="BaseResultMap" type="com.yu.st.entity.User">
+    <resultMap id="BaseResultMap" type="com.yu.st.bean.User">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
@@ -13,7 +13,7 @@
 
 
     </resultMap>
-    <resultMap id="useritem" type="com.yu.st.entity.User">
+    <resultMap id="useritem" type="com.yu.st.bean.User">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
@@ -23,7 +23,7 @@
         <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
         <result column="sex" jdbcType="INTEGER" property="sex"/>
 
-        <collection property="items" ofType="com.yu.st.entity.Item" column="id"
+        <collection property="items" ofType="com.yu.st.bean.Item" column="id"
                     select="com.yu.st.dao.ItemDao.selectByUserId"/>
     </resultMap>
 
@@ -42,7 +42,7 @@
         where id = #{id,jdbcType=INTEGER}
     </select>
 
-    <select id="selectByUsername" resultType="com.yu.st.entity.User">
+    <select id="selectByUsername" resultType="com.yu.st.bean.User">
         select
         <include refid="Base_Column_List"/>
         from user
@@ -53,7 +53,7 @@
         from user
         where id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yu.st.entity.User" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yu.st.bean.User" useGeneratedKeys="true">
         insert into user (username, `password`, flag,
                           phone, regtime, avatar,
                           sex)
@@ -61,7 +61,7 @@
                 #{phone,jdbcType=VARCHAR}, #{regtime,jdbcType=TIMESTAMP}, #{avatar,jdbcType=VARCHAR},
                 #{sex,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yu.st.entity.User"
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yu.st.bean.User"
             useGeneratedKeys="true">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -111,7 +111,7 @@
             </if>
         </trim>
     </insert>
-    <update id="addUser" parameterType="com.yu.st.entity.User">
+    <update id="updateByPrimaryKeySelective" parameterType="com.yu.st.bean.User">
         update user
         <set>
             <if test="username != null">
@@ -138,7 +138,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.yu.st.entity.User">
+    <update id="updateByPrimaryKey" parameterType="com.yu.st.bean.User">
         update user
         set username   = #{username,jdbcType=VARCHAR},
             `password` = #{password,jdbcType=VARCHAR},

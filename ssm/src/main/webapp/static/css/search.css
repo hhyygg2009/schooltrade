@@ -1,0 +1,78 @@
+.searchbar {
+    margin-top: 30px;
+    /*width: 800px;*/
+
+}
+
+#search {
+    width: 600px;
+    height: 40px;
+    border: solid 2px orangered;
+}
+
+#logo {
+    height: 88px;
+}
+
+.searchbar #searchbtn {
+    width: 180px;
+    height: 46px;
+    background-color: orangered;
+    color: white;
+    font-size: 18px;
+    border: none
+}
+
+.shelves {
+    margin: 30px auto;
+    clear: both;
+
+}
+
+.shelves .goods {
+    margin: 10px;
+    padding: 0;
+    width: 260px;
+    height: 360px;
+    float: left;
+    border: solid 1px #FFF;
+}
+
+.shelves .goods:hover {
+    border: solid 1px red;
+}
+
+.shelves .goods .item {
+    margin: 20px;
+}
+
+.shelves .goods .item .goodstu {
+    width: 200px;
+    height: 200px;
+}
+
+.shelves .goods .item .user {
+    margin-bottom: 5px;
+    width: 220px;
+}
+
+.shelves .goods .item .user .touxiang {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin-right: 10px;
+}
+
+.shelves .goods .item .info {
+    width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.item .item-price {
+    color: red;
+    font-size: 20px;
+}
