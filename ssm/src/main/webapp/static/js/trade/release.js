@@ -1,7 +1,7 @@
 picnum = 1
 
 function addpic(pic) {
-    $('#demo2').append(`<img src=" ${upload} / ${pic} " class="layui-upload-img">`)
+    $('#demo2').append(`<img src="${upload}/${pic}" class="layui-upload-img">`)
     $('#pics').append(`<input type="text" name="pic${picnum}" value="${pic}" hidden>`);
     picnum++;
 }
@@ -39,13 +39,13 @@ function insert(data) {
         contentType: 'application/json',
         async: true,
         data: data,
-        success: function (data) {
-            console.log(data);
-            if (data.code == 0) {
+        success: function (res) {
+            console.log(res);
+            if (res.code === 0) {
                 window.location.href = "my";
             } else {
                 layui.use('layer', function () {
-                    layui.layer.msg(data.msg);
+                    layui.layer.msg(res.msg);
                 })
             }
 

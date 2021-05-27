@@ -8,7 +8,7 @@ layui.use(['layer', 'form'], function () {
         , form = layui.form;
     form.on('submit(login)', function (data) {
         // console.log(data);
-        console.log(data.field);
+        // console.log(data.field);
         login(data.field);
         return false;
     })
@@ -22,16 +22,16 @@ function login(data) {
         dataType: 'json',
         async: true,
         data: data,
-        success: function (data) {
-            console.log(data);
-            if (data.code == 0) {
+        success: function (res) {
+            console.log(res);
+            if (res.code === 0) {
                 layui.use('layer', function () {
-                    layui.layer.msg(data.msg);
+                    layui.layer.msg(res.msg);
                 })
                 window.location.href = `${webroot}/my`;
             } else {
                 layui.use('layer', function () {
-                    layui.layer.msg(data.msg);
+                    layui.layer.msg(res.msg);
                 })
             }
 

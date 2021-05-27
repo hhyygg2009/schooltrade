@@ -30,29 +30,29 @@ public class ImageHandler {
         String date = dateFormat.format(new Date());
 //        File uploadDir = new File("./uploads/" + date);
         File uploadDir = new File(session.getServletContext().getRealPath("./uploads/") + date);
-//        File uploadDir=new File(".");
-        if (!uploadDir.exists()) {
-            if(!uploadDir.mkdirs()){
-                MyLogger.getLogger().error("[上传文件]目录创建失败:"+uploadDir.getAbsolutePath());
-            }else {
-//                System.out.println(uploadDir.getAbsolutePath());
-                String uuid = UUID.randomUUID().toString().replace("-", "");
-                try {
-                    String originalFilename = file.getOriginalFilename();
-                    if(originalFilename!=null){
-                        String newName = uuid + originalFilename.substring(originalFilename.indexOf("."));
-                        File newFile = new File(uploadDir + File.separator + newName);
-                        file.transferTo(newFile);
-                        message.setnoerror();
-                        message.addData("picaddr", date + '/' + newName);
-                    }
+//        System.out.println(uploadDir.getAbsolutePath());
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    MyLogger.getLogger().info("上传失败");
+        try {
+            if (!uploadDir.exists()) {
+                if (!uploadDir.mkdirs()) {
+                    throw new Exception("目录创建失败:" + uploadDir.getAbsolutePath());
                 }
             }
+            String uuid = UUID.randomUUID().toString().replace("-", "");
+            String originalFilename = file.getOriginalFilename();
+            if (originalFilename != null) {
+                String newName = uuid + originalFilename.substring(originalFilename.indexOf("."));
+                File newFile = new File(uploadDir + File.separator + newName);
+                file.transferTo(newFile);
+                message.setnoerror();
+                message.addData("picaddr", date + '/' + newName);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            MyLogger.getLogger().error("[上传文件]"+e.getMessage());
         }
+
 
         return message;
     }

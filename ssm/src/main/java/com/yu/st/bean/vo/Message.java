@@ -1,7 +1,10 @@
 package com.yu.st.bean.vo;
 
 import com.alibaba.fastjson.JSON;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,12 +18,22 @@ import java.util.Map;
  * @version:
  */
 @Data
+@NoArgsConstructor
 public class Message {
 
     //默认状态
     int code = -1;
     String msg = "error";
     private Map<String, Object> data = null;
+
+    public Message(int code) {
+        this.code = code;
+    }
+
+    public Message(int code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 
 
     public void addData(String name, Object object) {

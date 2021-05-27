@@ -16,6 +16,7 @@ public interface ItemDao {
     int insertSelective(Item record);
 
     Item selectByPrimaryKey(Integer id);
+    Item selectUserOwnItem(@Param("id") Integer id,@Param("userid")Integer userid);
 
 
     List<Item> getAllItem(@Param("start") Integer start, @Param("limit") Integer limit);

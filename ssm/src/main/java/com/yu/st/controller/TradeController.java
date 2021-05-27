@@ -6,6 +6,8 @@ import com.yu.st.dao.CategoryDao;
 import com.yu.st.dao.ConditionsDao;
 import com.yu.st.dao.ItemDao;
 import com.yu.st.dao.UserDao;
+import com.yu.st.service.impl.ItemService;
+import com.yu.st.service.impl.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashSet;
-import java.util.Set;
 
 @AllArgsConstructor
 @Controller
@@ -26,6 +26,8 @@ public class TradeController {
     private final ConditionsDao conditionsDao;
     private final CategoryDao categoryDao;
     private final UserDao userDao;
+    private final ItemService itemService;
+    private final UserService userService;
 
     @RequestMapping("/search")
     public String search(Model model, @RequestParam(required = false) String key) {
@@ -40,15 +42,7 @@ public class TradeController {
 
     @RequestMapping("/detail/{id}")
     public String detail(@PathVariable Integer id, Model model, HttpSession session) {
-
-        if (session.getAttribute("itemHistory") == null) {
-            Set<Integer> itemHistory = new HashSet<>();
-            session.setAttribute("itemHistory", itemHistory);
-        }
-
-        Set<Integer> itemHistory = (Set<Integer>) session.getAttribute("itemHistory");
-        itemHistory.add(id);
-        session.setAttribute("itemHistory", itemHistory);
+        itemService.saveItemHistory(id, session);
         Item item = itemDao.selectByPrimaryKey(id);
         model.addAttribute("item", item);
         return "/trade/detail";
@@ -64,14 +58,21 @@ public class TradeController {
     }
 
     @GetMapping("/newitem")
-    public String release(@RequestParam(required = false) Integer id, Model model) {
-        if (id != null) {
-            Item item = itemDao.selectByPrimaryKey(id);
-            model.addAttribute("item", item);
-        }
-
+    public String release(Model model) {
         model.addAttribute("condition", conditionsDao.selectAll());
         model.addAttribute("category", categoryDao.selectAll());
         return "/trade/release";
     }
+
+    @GetMapping("/edit")
+    public String edit(@RequestParam Integer id, Model model, HttpSession session) {
+        User loginUser = UserService.getLoginUser(session);
+        Item item = itemDao.selectUserOwnItem(id, loginUser.getId());
+        model.addAttribute("item", item);
+        model.addAttribute("condition", conditionsDao.selectAll());
+        model.addAttribute("category", categoryDao.selectAll());
+        return "/trade/release";
+    }
+
+
 }

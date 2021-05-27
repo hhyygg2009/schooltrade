@@ -26,8 +26,6 @@
         <form method="post" class="layui-form layui-form-pane" style="margin-left: 30px;">
             <fieldset class="layui-elem-field layui-field-title">
                 <legend>发布新物品</legend>
-
-
                 <div class="layui-form-item">
                     <label class="layui-form-label">标题</label>
                     <div class="layui-input-block" style="width: 400px;">
@@ -35,7 +33,6 @@
                                placeholder="请输入标题" autocomplete="off" lay-verify="required">
                     </div>
                 </div>
-
                 <div class="layui-form-item">
                     <div class="layui-inline">
                         <label class="layui-form-label">分类</label>
@@ -50,7 +47,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="layui-form-item">
                     <label class="layui-form-label">预估机况</label>
                     <div class="layui-input-block">
@@ -59,23 +55,13 @@
                                    <c:if test="${condition.id == item.conditionsId}">checked='true'</c:if>
                                    value="${condition.id}">
                         </c:forEach>
-
-                        <!--						<input name="conditions_id" title="几乎全新" type="radio" checked="" value="0">/-->
-                        <!--						<input name="conditions_id" title="二手" type="radio" value="1">-->
-
                     </div>
                 </div>
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label" style="float: none;">描述</label>
+<%--                    <label class="layui-form-label" style="float: none;">描述</label>--%>
                     <div class="layui-inline" style="z-index: 9;margin-top: 20px ;width: 800px;">
-                        <!--						&lt;!&ndash; 加载编辑器的容器 &ndash;&gt;-->
-                        <!--						<script id="container" name="content" type="text/plain">-->
-                        <!--						</script>-->
-                        <!--						&lt;!&ndash; 实例化编辑器 &ndash;&gt;-->
-
-                        <textarea id="container" lay-verify="textarea" name="info"
-                                  style="display: none;">${item.info}</textarea>
+                        <textarea id="container" lay-verify="textarea" name="info">${item.info}</textarea>
                     </div>
                 </div>
 
@@ -83,17 +69,18 @@
                 <div class="layui-upload">
                     <button class="layui-btn" id="test2" type="button">图片上传(可多张)</button>
                     <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;max-width: 770px;">
-                        预览图：
+                        <span>预览图：</span>
                         <div class="layui-upload-list" id="demo2"></div>
                     </blockquote>
                 </div>
 
 
                 <div class="layui-form-item">
-                    <label class="layui-form-label">价格</label>
+                    <label class="layui-form-label">价格(￥)</label>
                     <div class="layui-input-block">
                         <input name="price" class="layui-input" value="${item.price}"
                                type="text" placeholder="￥" autocomplete="off" lay-verify="price" style="width: 225px;">
+<%--                        <span style="position: absolute;right: 6%;">￥</span>--%>
                     </div>
                 </div>
                 <div id="pics"></div>

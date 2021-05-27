@@ -57,6 +57,23 @@
              category,
              state
         where item.id = #{id,jdbcType=INTEGER}
+          and item.user_id = #{userid,jdbcType=INTEGER}
+          and item.category_id = category.id
+          and item.conditions_id = conditions.id
+          and item.state_id = state.id
+    </select>
+    <select id="selectUserOwnItem" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select item.*,
+               user.*,
+               conditions.name conditionsname,
+               category.name   categoryname,
+               state.name      statename
+        from item,
+             user,
+             conditions,
+             category,
+             state
+        where item.id = #{id,jdbcType=INTEGER}
           and item.user_id = user.id
           and item.category_id = category.id
           and item.conditions_id = conditions.id

@@ -27,7 +27,7 @@ public class CommentHandler {
 
     @PostMapping("/create")
     public Message createComment(Comment comment, HttpSession session, Message message) {
-        User user = UserService.getLogin(session);
+        User user = UserService.getLoginUser(session);
 
         comment.setUserId(user.getId());
         commentDao.insertSelective(comment);

@@ -95,8 +95,7 @@
 
         <script>
 
-            userid =
-            ${userid}
+            var userid =${userid}
         </script>
 
 

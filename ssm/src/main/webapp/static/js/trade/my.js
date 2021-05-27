@@ -1,5 +1,24 @@
-getItemByUserId(1)
+var currPage = 1
+loadItems()
 getHistory(1)
+
+layui.use('element', function () {
+    var element = layui.element;
+    element.on('nav(demo)', function (elem) {
+        //console.log(elem)
+        layer.msg(elem.text());
+    });
+});
+
+var layer
+layui.use('layer', function () {
+    this.layer = layui.layer
+})
+
+function loadItems() {
+    $("#items").empty();
+    getItemByUserId(currPage)
+}
 
 function getItemByUserId(page) {
     var data = {"curr": page}
@@ -31,9 +50,9 @@ function getItemByUserId(page) {
                     , jump: function (obj, first) {
                         // console.log(obj.curr)
                         // console.log(obj.limit)
+                        currPage = obj.curr
                         if (!first) {
-                            $("#items").empty();
-                            getItemByUserId(obj.curr)
+                            loadItems()
                         }
                     }
                 });
@@ -84,12 +103,6 @@ function getHistory(page) {
 }
 
 
-
-function deleteconfirm() {
-    return confirm("是否删除");
-}
-
-
 function gethtmlitem(item) {
     var date = new Date(item.createtime);
 
@@ -110,11 +123,41 @@ function gethtmlitem(item) {
                 <p>${item.state.name}</p>
             </div>
             <div  class="goods-command">                
-                    <p><a href="${api}/item/${item.id}/delete" onclick="return deleteconfirm();">彻底删除</a></p>
+                    <p><a href="#" onclick="return deleteconfirm(${item.id},'delete');">彻底删除</a></p>
                     <p><a href="${webroot}/newitem?id=${item.id}">修改</a></p>
-                    <p><a href="${api}/item/${item.id}/on">上架/下架</a></p>                
+                    <p><a href="#" onclick="itemOper(${item.id},'on')">上架/下架</a></p>                
             </div>
         </div>
     </div>
 </div>`;
+}
+
+function deleteconfirm(id, oper) {
+    if (confirm("是否删除")) {
+        itemOper(id, oper)
+    } else {
+        layer.msg("操作已取消");
+    }
+}
+
+function itemOper(id, oper) {
+    $.ajax({
+        type: 'POST',
+        url: `${api}/item/${id}/${oper}`,
+        dataType: 'json',
+        async: true,
+        success: function (resp) {
+            console.log(resp);
+            var msg
+            if (resp.code === 0) {
+                msg = "成功"
+            } else {
+                msg = resp.msg
+            }
+            layer.msg(msg, function () {
+                // location.reload()
+                loadItems()
+            });
+        }
+    })
 }

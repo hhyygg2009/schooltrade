@@ -76,8 +76,8 @@
                         </tr>
                     </table>
 
-                    <div class="iteminfo-contact">联系卖家</div>
-                    <div class="iteminfo-contact">我要购买</div>
+<%--                    <div class="iteminfo-contact">联系卖家</div>--%>
+<%--                    <div class="iteminfo-contact">我要购买</div>--%>
                 </div>
 
                 <div class="layui-col-md3">
@@ -157,12 +157,12 @@
 
             </div>
 
-            <div>
-                <h1>留言板</h1>
-                <textarea class="layui-textarea"></textarea>
-                <input type="submit" class="layui-btn">
+<%--            <div>--%>
+<%--                <h1>留言板</h1>--%>
+<%--                <textarea class="layui-textarea"></textarea>--%>
+<%--                <input type="submit" class="layui-btn">--%>
 
-            </div>
+<%--            </div>--%>
 
             <div class="layui-row">
                 <div id="messagebroad" style="margin-top: 50px;">

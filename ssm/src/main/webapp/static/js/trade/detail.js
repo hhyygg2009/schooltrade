@@ -11,7 +11,7 @@ function getmessage(data) {
 <div>
     <img style="height:50px;width: 50px;border-radius: 50%" src="${upload}/${avatar}" alt="">${username}
     <p>价格已经很便宜了，需要直接拍</p>                        
-    <a href="">回复</a> <a href="">举报</a>
+<!--    <a href="">回复</a> <a href="">举报</a>-->
     <hr>
 </div>`
 }

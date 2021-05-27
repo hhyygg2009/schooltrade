@@ -83,13 +83,13 @@ function register(data) {
         dataType: 'json',
         async: true,
         data: data,
-        success: function (data) {
-            console.log(data);
-            if (data.code == 0) {
+        success: function (res) {
+            console.log(res);
+            if (res.code === 0) {
                 window.location.href = "/passport/login";
             } else {
                 layui.use('layer', function () {
-                    layui.layer.msg(data.msg);
+                    layui.layer.msg(res.msg);
                 })
             }
 

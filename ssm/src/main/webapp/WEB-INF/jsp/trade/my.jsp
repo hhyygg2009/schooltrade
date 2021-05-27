@@ -90,15 +90,6 @@
             </div>
         </div>
 
-        <script>
-            layui.use('element', function () {
-                var element = layui.element;
-                element.on('nav(demo)', function (elem) {
-                    //console.log(elem)
-                    layer.msg(elem.text());
-                });
-            });
-        </script>
 
         <script src="/static/js/util.js"></script>
         <script src="/static/js/trade/my.js"></script>
