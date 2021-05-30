@@ -45,7 +45,7 @@
         id, `name`, price, info, createTime, state_id, category_id, conditions_id, user_id,
     pic1, pic2, pic3
     </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectUserOwnItem" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select item.*,
                user.*,
                conditions.name conditionsname,
@@ -62,7 +62,7 @@
           and item.conditions_id = conditions.id
           and item.state_id = state.id
     </select>
-    <select id="selectUserOwnItem" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select item.*,
                user.*,
                conditions.name conditionsname,

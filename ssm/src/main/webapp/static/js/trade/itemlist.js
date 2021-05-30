@@ -1,32 +1,29 @@
-getItemByUserId(1)
+layui.use(['laypage', 'layer', 'form'], function () {
+    var layer = layui.layer
+        , form = layui.form
+        , laypage = layui.laypage
 
-function getItemByUserId(page) {
-    var data = {"curr": page, "userid": userid}
-    // console.log(userid);
-    // if (userid != null) {
-    //     data.push("userid", userid);
-    // }
-    $.ajax({
-        type: 'POST',
-        url: `${api}/items/user/${userid}/gets`,
-        dataType: 'json',
-        async: true,
-        data: data,
-        success: function (resp) {
-            console.log(resp);
-            $.each(resp.data.items, function (index, val) {
-                console.log(val);
-                $("#items").append(gethtmlitem(val));
+    getItemByUserId(1)
 
-            })
-            if (resp.code != 0) {
-                layui.use('layer', function () {
-                    layui.layer.msg(resp.msg);
+    function getItemByUserId(page) {
+        var data = {"curr": page, "userid": userid}
+        $.ajax({
+            type: 'POST',
+            url: `${api}/items/user/${userid}/gets`,
+            dataType: 'json',
+            async: true,
+            data: data,
+            success: function (resp) {
+                console.log(resp);
+                $.each(resp.data.items, function (index, val) {
+                    console.log(val);
+                    $("#items").append(gethtmlitem(val));
+
                 })
-            }
-            layui.use('laypage', function () {
-                var laypage = layui.laypage;
-                //执行一个laypage实例
+                if (resp.code !== 0) {
+                    layer.msg(resp.msg);
+                }
+
                 laypage.render({
                     elem: 'pager' //注意，这里的 test1 是 ID，不用加 # 号
                     , count: resp.data.count //数据总数，从服务端得到
@@ -40,22 +37,14 @@ function getItemByUserId(page) {
                         }
                     }
                 });
-            });
-        }
-    })
-}
+            }
+        })
+    }
 
+    function gethtmlitem(item) {
+        var date = new Date(item.createtime);
 
-
-function deleteconfirm() {
-    return confirm("是否删除");
-}
-
-
-function gethtmlitem(item) {
-    var date = new Date(item.createtime);
-
-    return `    
+        return `    
 <div class="big-goods">
 <input type="checkbox" name="item[]" value="${item.id}">
 <div class="info">${dateFormat("YYYY-mm-dd", date)} 订单号：${item.id}</div>
@@ -71,12 +60,13 @@ function gethtmlitem(item) {
                 <p>￥${item.price}</p>
                 <p>${item.state.name}</p>
             </div>
-            <div  class="goods-command">                
-                    <p><a href="${api}/item?oper=del&id=${item.id}" onclick="return deleteconfirm();">彻底删除</a></p>
-                    <p><a href="${webroot}/newitem?id=${item.id}">修改</a></p>
-                    <p><a href="${api}/item?oper=on&id=${item.id}">上架/下架</a></p>                
-            </div>
         </div>
     </div>
 </div>`;
+    }
+})
+
+function deleteConfirm() {
+    return confirm("是否删除");
 }
+

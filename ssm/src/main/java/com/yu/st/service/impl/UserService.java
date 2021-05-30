@@ -13,60 +13,67 @@ import javax.servlet.http.HttpSession;
 /**
  * @author :hhyygg2009
  * @date :Created in 2020/12/20 16:09
- * @package :com.yu.st.service.impl
- * @description:
- * @modified By：
- * @version:
  */
 
 @Service
 public class UserService {
 
-    public static final int CAPTCHAERR = 4;
-    public static final int USERNULL = 3;
-    public static final int USERNOTFOUND = 2;
-    public static final int PASSERR = 1;
-    public static final int PASS = 0;
-    public static final String[] msg = {"登录成功", "密码错误", "用户名不存在", "输入为空", "验证码错误"};
+    public static final int CAPTCHA_ERR = 4,USER_NULL=3,USER_NOT_FOUND=2,PASS_ERR=1,PASS=0;
+    public static final String[] MSG = {"登录成功", "密码错误", "用户名不存在", "输入为空", "验证码错误"};
+    public static final String USER_SESSION_ATTR="user";
 
     @Autowired
     UserDao userDao;
 
     public int registerAction(UserForm userForm, HttpSession session) {
-        if (!captchaCheck(session, userForm.getCaptcha())) {
-            return UserService.CAPTCHAERR;
-        }else if (userDao.selectByPrimaryKey(userForm.getId()) == null) {
-            return -1;
-        }else{
-            userForm.setPassword(MD5.generateCode(userForm.getPassword()));
-            if(userDao.insertSelective(userForm)>0){
-                return 0;
+
+        if(captchaCheck(session,userForm.getCaptcha())){
+            if (userDao.selectByPrimaryKey(userForm.getId()) != null) {
+                return -2;
+            }else {
+                userForm.setPassword(MD5.generateCode(userForm.getPassword()));
+                if(userDao.insertSelective(userForm)>0){
+                    return 0;
+                }
+                return -1;
             }
-            return -1;
+        }else {
+            return UserService.CAPTCHA_ERR;
         }
     }
 
     public Message loginAction(UserForm userForm, HttpSession session) {
         int status;
-        if (!captchaCheck(session, userForm.getCaptcha())) {
-            status = UserService.CAPTCHAERR;
-        }else{
+        if (captchaCheck(session, userForm.getCaptcha())) {
             User user = userDao.selectByUsername(userForm.getUsername());
             if (user == null) {
-                status = UserService.PASSERR;
+                status = UserService.PASS_ERR;
             } else {
                 session.setAttribute("user", user);
                 status = UserService.PASS;
             }
+        }else{
+            status = UserService.CAPTCHA_ERR;
         }
-        return new Message(status, UserService.msg[status]);
+        return Message.build(status, UserService.MSG[status], null);
+    }
+
+    public Message updateAction(User user,HttpSession session){
+        if(checkUser(user,session)){
+            userDao.updateByPrimaryKeySelective(user);
+            return Message.success();
+        }
+        return Message.error();
     }
 
 
     public static User getLoginUser(HttpSession session) {
-        return (User) session.getAttribute("user");
+        return (User) session.getAttribute(USER_SESSION_ATTR);
     }
 
+    public static boolean checkUser(User user,HttpSession session){
+        return user.getId().equals(getLoginUser(session).getId());
+    }
 
 
     public boolean captchaCheck(HttpSession session, String captchaIn) {

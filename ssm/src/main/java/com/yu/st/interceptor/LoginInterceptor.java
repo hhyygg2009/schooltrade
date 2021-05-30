@@ -1,6 +1,7 @@
 package com.yu.st.interceptor;
 
 import com.yu.st.bean.User;
+import com.yu.st.service.impl.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -17,7 +18,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+        User user = UserService.getLoginUser(session);
 
         if (checkAuth(request.getRequestURI(), user)) {
             return true;

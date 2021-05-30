@@ -1,92 +1,73 @@
-var currPage = 1
-loadItems()
-getHistory(1)
+layui.use(['laypage', 'layer', 'form'], function () {
+    var layer = layui.layer
+        , form = layui.form
+        , laypage = layui.laypage
 
-layui.use('element', function () {
-    var element = layui.element;
-    element.on('nav(demo)', function (elem) {
-        //console.log(elem)
-        layer.msg(elem.text());
-    });
-});
+    loadItems(1)
+    getHistory(1)
 
-var layer
-layui.use('layer', function () {
-    this.layer = layui.layer
-})
 
-function loadItems() {
-    $("#items").empty();
-    getItemByUserId(currPage)
-}
+    function loadItems(currPage) {
+        $("#items").empty();
+        getItemByUserId(currPage)
+    }
 
-function getItemByUserId(page) {
-    var data = {"curr": page}
-    $.ajax({
-        type: 'POST',
-        url: `${api}/items/user/gets`,
-        dataType: 'json',
-        async: true,
-        data: data,
-        success: function (resp) {
-            console.log(resp);
-            $.each(resp.data.items, function (index, val) {
-                console.log(val);
-                $("#items").append(gethtmlitem(val));
+    function getItemByUserId(page) {
+        var data = {"curr": page}
+        $.ajax({
+            type: 'POST',
+            url: `${api}/items/user/gets`,
+            dataType: 'json',
+            async: true,
+            data: data,
+            success: function (res) {
+                console.log(res);
+                $.each(res.data.items, function (index, val) {
+                    console.log(val);
+                    $("#items").append(gethtmlitem(val));
 
-            })
-            if (resp.code != 0) {
-                layui.use('layer', function () {
-                    layui.layer.msg(resp.msg);
                 })
-            }
-            layui.use('laypage', function () {
-                var laypage = layui.laypage;
-                //执行一个laypage实例
+                if (res.code !== 0) {
+                    layer.msg(res.msg);
+                }
                 laypage.render({
                     elem: 'pager' //注意，这里的 test1 是 ID，不用加 # 号
-                    , count: resp.data.count //数据总数，从服务端得到
+                    , count: res.data.count //数据总数，从服务端得到
                     , curr: page
                     , jump: function (obj, first) {
                         // console.log(obj.curr)
                         // console.log(obj.limit)
-                        currPage = obj.curr
                         if (!first) {
-                            loadItems()
+                            loadItems(obj.curr)
                         }
                     }
                 });
-            });
-        }
-    })
-}
-
-function getHistory(page) {
-    data = {"curr": page}
-    $.ajax({
-        type: 'POST',
-        url: `${api}/items/history/gets`,
-        dataType: 'json',
-        async: true,
-        data: data,
-        success: function (resp) {
-            console.log(resp);
-            $.each(resp.data.items, function (index, val) {
-                console.log(val);
-                $("#itemHistory").append(gethtmlitem(val));
-
-            })
-            if (resp.code != 0) {
-                layui.use('layer', function () {
-                    layui.layer.msg(resp.msg);
-                })
             }
-            layui.use('laypage', function () {
-                var laypage = layui.laypage;
-                //执行一个laypage实例
+        })
+    }
+
+    function getHistory(page) {
+        data = {"curr": page}
+        $.ajax({
+            type: 'POST',
+            url: `${api}/items/history/gets`,
+            dataType: 'json',
+            async: true,
+            data: data,
+            success: function (res) {
+                console.log(res);
+                $.each(res.data.items, function (index, val) {
+                    console.log(val);
+                    $("#itemHistory").append(gethtmlitem(val));
+
+                })
+                if (res.code !== 0) {
+                    layer.msg(res.msg);
+                }
+
                 laypage.render({
-                    elem: 'itemHistorypager' //注意，这里的 test1 是 ID，不用加 # 号
-                    , count: resp.data.count //数据总数，从服务端得到
+                    elem: 'itemHistoryPager' //注意，这里的 test1 是 ID，不用加 # 号
+                    , count: res.data.count //数据总数，从服务端得到
                     , curr: page
                     , jump: function (obj, first) {
                         // console.log(obj.curr)
@@ -97,16 +78,15 @@ function getHistory(page) {
                         }
                     }
                 });
-            });
-        }
-    })
-}
+            }
+        })
+    }
 
 
-function gethtmlitem(item) {
-    var date = new Date(item.createtime);
+    function gethtmlitem(item) {
+        var date = new Date(item.createtime);
 
-    return `    
+        return `    
 <div class="big-goods">
 <input type="checkbox" name="item[]" value="${item.id}">
 <div class="info">${dateFormat("YYYY-mm-dd", date)} 订单号：${item.id}</div>
@@ -123,41 +103,51 @@ function gethtmlitem(item) {
                 <p>${item.state.name}</p>
             </div>
             <div  class="goods-command">                
-                    <p><a href="#" onclick="return deleteconfirm(${item.id},'delete');">彻底删除</a></p>
-                    <p><a href="${webroot}/newitem?id=${item.id}">修改</a></p>
-                    <p><a href="#" onclick="itemOper(${item.id},'on')">上架/下架</a></p>                
+                    <p><a href="#" class="delete" data-id="${item.id}">彻底删除</a></p>
+                    <p><a href="${webroot}/edit?id=${item.id}">修改</a></p>
+                    <p><a href="#" class="on" data-id="${item.id}"">上架/下架</a></p>                
             </div>
         </div>
     </div>
 </div>`;
-}
-
-function deleteconfirm(id, oper) {
-    if (confirm("是否删除")) {
-        itemOper(id, oper)
-    } else {
-        layer.msg("操作已取消");
     }
-}
 
-function itemOper(id, oper) {
-    $.ajax({
-        type: 'POST',
-        url: `${api}/item/${id}/${oper}`,
-        dataType: 'json',
-        async: true,
-        success: function (resp) {
-            console.log(resp);
-            var msg
-            if (resp.code === 0) {
-                msg = "成功"
-            } else {
-                msg = resp.msg
-            }
-            layer.msg(msg, function () {
-                // location.reload()
-                loadItems()
-            });
+    $(document).on("click","a.delete",function (){
+        if (confirm("是否删除")) {
+            itemOper(this.dataset.id, 'delete')
+        } else {
+            layer.msg("操作已取消");
         }
+        return false
     })
-}
+
+    $(document).on("click","a.on",function (){
+        itemOper(this.dataset.id,'on')
+        return false
+    })
+
+
+
+    function itemOper(id, oper) {
+        $.ajax({
+            type: 'POST',
+            url: `${api}/item/${id}/${oper}`,
+            dataType: 'json',
+            async: true,
+            success: function (res) {
+                console.log(res);
+                var msg
+                if (res.code === 0) {
+                    msg = "成功"
+                } else {
+                    msg = res.msg
+                }
+                layer.msg(msg, function () {
+                    // location.reload()
+                    loadItems()
+                });
+            }
+        })
+    }
+
+})

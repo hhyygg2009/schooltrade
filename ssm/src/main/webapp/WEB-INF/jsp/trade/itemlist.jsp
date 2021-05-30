@@ -95,11 +95,11 @@
 
         <script>
 
-            var userid =${userid}
+            var userid =${user.id}
         </script>
 
 
-        <script src="/static/js/util.js"></script>
+        <script src="/static/js/public/util.js"></script>
         <script src="/static/js/trade/itemlist.js"></script>
 
 

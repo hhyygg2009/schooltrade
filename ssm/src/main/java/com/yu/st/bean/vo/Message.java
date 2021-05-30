@@ -1,54 +1,60 @@
 package com.yu.st.bean.vo;
 
 import com.alibaba.fastjson.JSON;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author :hhyygg2009
  * @date :Created in 2020/12/20 22:22
- * @package :com.yu.st.controller
- * @description:
- * @modified By：
- * @version:
  */
 @Data
-@NoArgsConstructor
-public class Message {
+@Accessors(chain = true)
+public class Message implements Serializable {
 
-    //默认状态
+    /*
+    默认状态
+    */
     int code = -1;
     String msg = "error";
-    private Map<String, Object> data = null;
+    private Object data = null;
 
-    public Message(int code) {
-        this.code = code;
+    public static Message build(int code, String msg, Map<String, Object> data) {
+        return new Message()
+                .setCode(code)
+                .setMsg(msg)
+                .setData(data);
     }
 
-    public Message(int code, String msg) {
-        this.code = code;
-        this.msg = msg;
+
+    public static Message success() {
+        return new Message()
+                .setCode(0)
+                .setMsg("success")
+                .setData(null);
     }
 
+    public static Message error() {
+        return new Message();
+    }
 
-    public void addData(String name, Object object) {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public Message addData(String name, Object object) {
         if (data == null) {
-            data = new HashMap<>();
+            data = new HashMap<>(16);
         }
-        this.data.put(name, object);
+        if (this.data instanceof Map) {
+            ((Map) this.data).put(name, object);
+        }
+        return this;
     }
 
-    public void setnoerror() {
-        code = 0;
-        msg = "noerror";
-    }
 
-
+    @Override
     public String toString() {
         return JSON.toJSONString(this);
     }

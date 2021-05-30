@@ -13,7 +13,7 @@ public interface UserDao {
 
     User selectByPrimaryKey(Integer id);
 
-    User getUser(Integer id);
+    User getUserWithItem(Integer id);
 
     User selectByUsername(String username);
 

@@ -11,12 +11,9 @@
 
 <link rel="stylesheet" href="/static/layui/css/layui.css">
 <script src="/static/layui/layui.js"></script>
-<script src="/static/js/jquery-3.4.1.min.js"></script>
-<script>
-    webroot = "";
-    upload = webroot + "/uploads";
-    api = webroot + "/api"
-</script>
+<script src="/static/js/public/jquery-3.4.1.min.js"></script>
+<script src="/static/js/public/header.js"></script>
+
 <style>
     * {
         margin: 0;
@@ -72,11 +69,3 @@
 </div>
 
 
-<script>
-    //注意：导航 依赖 element 模块，否则无法进行功能性操作
-    layui.use('element', function () {
-        var element = layui.element;
-
-        //…
-    });
-</script>

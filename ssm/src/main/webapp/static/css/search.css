@@ -64,6 +64,11 @@
     margin-right: 10px;
 }
 
+.shelves .goods .item .user .username{
+    line-height: 40px;
+}
+
+
 .shelves .goods .item .info {
     width: 220px;
     overflow: hidden;

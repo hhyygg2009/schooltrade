@@ -81,3 +81,16 @@
 .shop-detail .user-name {
     display: inline-block;
 }
+
+.avatar {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.replybroad {
+    margin-left: 32px;
+    padding-left: 10px;
+    border-left: 2px solid #f5f6f7;
+
+}

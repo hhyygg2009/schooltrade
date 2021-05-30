@@ -2,6 +2,7 @@ package com.yu.st.controller;
 
 import com.yu.st.bean.User;
 import com.yu.st.dao.UserDao;
+import com.yu.st.service.impl.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +19,6 @@ import javax.servlet.http.HttpSession;
 @AllArgsConstructor
 @RequestMapping("/passport")
 public class PassportController {
-
-    UserDao userDao;
 
     @GetMapping(value = "/login")
     public String login() {
@@ -47,7 +46,7 @@ public class PassportController {
 
     @RequestMapping({"/profile"})
     public String profile(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+        User user = UserService.getLoginUser(session);
         model.addAttribute("user", user);
         return "/passport/profile";
     }

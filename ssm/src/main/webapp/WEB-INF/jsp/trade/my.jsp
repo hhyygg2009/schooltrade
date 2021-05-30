@@ -83,7 +83,9 @@
                         </div>
 
                         <div class="layui-row">
-                            <div id="itemHistorypager"></div>
+                            <div id="itemHistoryPager">
+                                <!--JS插入数据-->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -91,7 +93,7 @@
         </div>
 
 
-        <script src="/static/js/util.js"></script>
+        <script src="/static/js/public/util.js"></script>
         <script src="/static/js/trade/my.js"></script>
 
 

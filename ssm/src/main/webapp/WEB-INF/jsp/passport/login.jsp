@@ -11,7 +11,6 @@
 <head>
     <meta charset="utf-8">
     <title>用户登录</title>
-    <link rel="stylesheet" href="/static/css/login.css">
 </head>
 
 <body>
@@ -49,7 +48,7 @@
                                    placeholder="请输入验证码"
                                    autocomplete="off" class="layui-input">
                         </div>
-                        <img id="code" onclick="reloadcode()" src="/passport/code" alt="">
+                        <img id="code" onclick="reloadCode()" src="/passport/code" alt="">
                     </div>
                 </div>
             </div>
@@ -69,4 +68,7 @@
 
 
 <script src="/static/js/passport/login.js"></script>
+<script src="/static/js/passport/code.js"></script>
+<link rel="stylesheet" href="/static/css/login.css">
+
 </html>

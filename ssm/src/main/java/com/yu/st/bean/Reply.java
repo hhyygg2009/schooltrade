@@ -1,7 +1,6 @@
 package com.yu.st.bean;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
@@ -11,17 +10,22 @@ import java.io.Serializable;
  * @author
  */
 @Data
-@Component
 public class Reply implements Serializable {
     private Integer id;
 
-    private Integer userId;
+    private Integer commentId;
+
+    private Integer replyId;
 
     private Integer replyType;
 
-    private Integer commentId;
-
     private String content;
+
+    private Integer fromUid;
+
+    private Integer toUid;
+
+    private User user;
 
     private static final long serialVersionUID = 1L;
 }

@@ -36,7 +36,7 @@
         from user
         where id = #{id,jdbcType=INTEGER}
     </select>
-    <select id="getUser" parameterType="java.lang.Integer" resultMap="useritem">
+    <select id="getUserWithItem" parameterType="java.lang.Integer" resultMap="useritem">
         select *
         from user
         where id = #{id,jdbcType=INTEGER}

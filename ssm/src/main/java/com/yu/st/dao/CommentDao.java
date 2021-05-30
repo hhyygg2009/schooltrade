@@ -15,11 +15,9 @@ public interface CommentDao {
 
     Comment selectByPrimaryKey(Integer id);
 
-    List<Comment> selectByItem(Integer id);
-
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
 
-
+    List<Comment> selectByTopicId(Integer itemId);
 }

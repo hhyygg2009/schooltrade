@@ -31,53 +31,72 @@
     <div class="layui-main" style="">
         <div class="layui-container">
 
-            <div>
-                <h1>${item.name}</h1>
-                <h3>0次浏览</h3>
-                <p>${item.createtime}更新</p>
-
-            </div>
-
             <div class="layui-row">
-                <div class="layui-col-md3">
-                    <div class="layui-carousel" id="carousel">
-                        <div carousel-item>
-                            <c:if test="${not empty item.pic1}">
-                                <div><img src="/uploads/${item.pic1}" alt=""></div>
-                            </c:if>
-                            <c:if test="${not empty item.pic2}">
-                                <div><img src="/uploads/${item.pic2}" alt=""></div>
-                            </c:if>
-                            <c:if test="${not empty item.pic3}">
-                                <div><img src="/uploads/${item.pic3}" alt=""></div>
-                            </c:if>
 
+                <div class="layui-col-md9">
+                    <div>
+                        <h1>${item.name}</h1>
+                        <h3>0次浏览</h3>
+                        <p>${item.createtime}更新</p>
+
+                    </div>
+
+                    <div class="layui-col-md4">
+                        <div class="layui-carousel" id="carousel">
+                            <div carousel-item>
+                                <c:if test="${not empty item.pic1}">
+                                    <div><img src="/uploads/${item.pic1}" alt=""></div>
+                                </c:if>
+                                <c:if test="${not empty item.pic2}">
+                                    <div><img src="/uploads/${item.pic2}" alt=""></div>
+                                </c:if>
+                                <c:if test="${not empty item.pic3}">
+                                    <div><img src="/uploads/${item.pic3}" alt=""></div>
+                                </c:if>
+
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="layui-col-md6">
-                    <table class="iteminfo">
-                        <tr>
-                            <td>价格</td>
-                            <td>${item.price}￥</td>
-                        </tr>
-                        <tr>
-                            <td>成色</td>
-                            <td>${item.condition.name}</td>
-                        </tr>
-                        <tr>
-                            <td>联系人</td>
-                            <td>${item.user.username}</td>
-                        </tr>
-                        <tr>
-                            <td>联系电话</td>
-                            <td>${item.user.phone}</td>
-                        </tr>
-                    </table>
+                    <div class="layui-col-md8 iteminfo">
 
-<%--                    <div class="iteminfo-contact">联系卖家</div>--%>
-<%--                    <div class="iteminfo-contact">我要购买</div>--%>
+                        <%--                    <table class="iteminfo">--%>
+                        <%--                        <tr>--%>
+                        <%--                            <td>价格</td>--%>
+                        <%--                            <td>${item.price}￥</td>--%>
+                        <%--                        </tr>--%>
+                        <%--                        <tr>--%>
+                        <%--                            <td>成色</td>--%>
+                        <%--                            <td>${item.condition.name}</td>--%>
+                        <%--                        </tr>--%>
+                        <%--                        <tr>--%>
+                        <%--                            <td>联系人</td>--%>
+                        <%--                            <td>${item.user.username}</td>--%>
+                        <%--                        </tr>--%>
+                        <%--                        <tr>--%>
+                        <%--                            <td>联系电话</td>--%>
+                        <%--                            <td>${item.user.phone}</td>--%>
+                        <%--                        </tr>--%>
+                        <%--                    </table>--%>
+
+                        <div class="layui-row">
+                            <span id="price-now">现价: <span>${item.price}</span>元</span>
+                        </div>
+                        <div class="layui-row">
+                            <span class="info-tips">${item.condition.name}</span>
+                            <span class="info-tips">真实个人</span>
+                            <span class="info-tips">在线沟通</span>
+                        </div>
+                        <div class="layui-row">
+                            <div class="iteminfo-contact">联系卖家</div>
+                            <div class="iteminfo-buy">我要购买</div>
+                        </div>
+
+
+                        <div class="iteminfo-want">想要</div>
+                    </div>
+
+
                 </div>
 
                 <div class="layui-col-md3">
@@ -99,22 +118,30 @@
                         <%--                            <td>${item.user.phone}</td>--%>
                         <%--                        </tr>--%>
 
-                        <div><span>他的交易</span><a href="/user/${item.user.id}">查看详细信息></a></div>
-                        <div class="user-selling">
-                            <div class="user-selling-num">17</div>
-                            <div class="user-selling-num-text">在售宝贝</div>
+                        <div class="user-trade">
+                            <span class="title">TA的交易</span>
+                            <a href="/user/${item.user.id}" class="detail">查看详细信息></a>
                         </div>
-                        <div class="user-selling">
-                            <div class="user-selling-num">17</div>
-                            <div class="user-selling-num-text">在售宝贝</div>
+                        <div class="user-infocard">
+                            <div class="user-selling broder">
+                                <div class="user-selling-num">17</div>
+                                <div class="user-selling-num-text">在售宝贝</div>
+                            </div>
+                            <div class="user-selling broder">
+                                <div class="user-selling-num">17</div>
+                                <div class="user-selling-num-text">在售宝贝</div>
+                            </div>
+                            <div class="user-selling">
+                                <div class="user-selling-num">17</div>
+                                <div class="user-selling-num-text">在售宝贝</div>
+                            </div>
                         </div>
-                        <div class="user-selling">
-                            <div class="user-selling-num">17</div>
-                            <div class="user-selling-num-text">在售宝贝</div>
-                        </div>
+
                     </div>
                 </div>
             </div>
+
+
             <div class="layui-row">
                 <div class="layui-tab">
                     <ul class="layui-tab-title">
@@ -128,7 +155,7 @@
                                 <img class="user-img" src="/uploads/${item.user.avatar}" alt="">
                                 <div class="user-name">${item.user.username}</div>
                                 有话说
-                                <div>${item.info}</div>
+                                <div class="item-info">${item.info}</div>
                             </div>
                         </div>
                         <div class="layui-tab-item">
@@ -157,32 +184,37 @@
 
             </div>
 
-<%--            <div>--%>
-<%--                <h1>留言板</h1>--%>
-<%--                <textarea class="layui-textarea"></textarea>--%>
-<%--                <input type="submit" class="layui-btn">--%>
+            <div>
+                <h1>留言板</h1>
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <textarea class="layui-textarea" name="content" lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-filter="message" lay-submit>提交</button>
+                        </div>
+                    </div>
+                </form>
 
-<%--            </div>--%>
-
-            <div class="layui-row">
-                <div id="messagebroad" style="margin-top: 50px;">
-
-                </div>
             </div>
 
-
+            <div class="layui-row">
+                <h1>留言内容</h1>
+                <div id="messagebroad">
+                    <!--数据插入 -->
+                </div>
+            </div>
         </div>
-        <!--    {include file="public/footer" /}-->
-        <%--    <%@ include file="/public/footer.jsp" %>--%>
-
     </div>
 
 
 </body>
 <script>
-    var avatar = '${item.user.avatar}'
-
-    var username = '${item.user.username}';
+    var itemId =
+    ${item.id}
 </script>
 <script src="/static/js/trade/detail.js"></script>
 </html>

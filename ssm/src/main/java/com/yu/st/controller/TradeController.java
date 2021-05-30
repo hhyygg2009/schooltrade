@@ -9,6 +9,7 @@ import com.yu.st.dao.UserDao;
 import com.yu.st.service.impl.ItemService;
 import com.yu.st.service.impl.UserService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 
 @AllArgsConstructor
+@Slf4j
 @Controller
 public class TradeController {
 
@@ -27,7 +29,6 @@ public class TradeController {
     private final CategoryDao categoryDao;
     private final UserDao userDao;
     private final ItemService itemService;
-    private final UserService userService;
 
     @RequestMapping("/search")
     public String search(Model model, @RequestParam(required = false) String key) {
@@ -42,7 +43,9 @@ public class TradeController {
 
     @RequestMapping("/detail/{id}")
     public String detail(@PathVariable Integer id, Model model, HttpSession session) {
-        itemService.saveItemHistory(id, session);
+        if(!itemService.saveItemHistory(id, session)){
+            log.error("物品记录保存失败");
+        }
         Item item = itemDao.selectByPrimaryKey(id);
         model.addAttribute("item", item);
         return "/trade/detail";
@@ -50,9 +53,8 @@ public class TradeController {
 
     @RequestMapping("/user/{userid}")
     public String itemsbyuser(@PathVariable int userid, Model model) {
-        User user = userDao.getUser(userid);
+        User user = userDao.getUserWithItem(userid);
         model.addAttribute("user", user);
-        model.addAttribute("userid", userid);
 
         return "/trade/itemlist";
     }

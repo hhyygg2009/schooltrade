@@ -3,13 +3,27 @@
 <mapper namespace="com.yu.st.dao.ReplyDao">
     <resultMap id="BaseResultMap" type="com.yu.st.bean.Reply">
         <id column="id" jdbcType="INTEGER" property="id"/>
-        <result column="user_id" jdbcType="INTEGER" property="userId"/>
-        <result column="reply_type" jdbcType="INTEGER" property="replyType"/>
         <result column="comment_id" jdbcType="INTEGER" property="commentId"/>
+        <result column="reply_id" jdbcType="INTEGER" property="replyId"/>
+        <result column="reply_type" jdbcType="INTEGER" property="replyType"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="from_uid" jdbcType="INTEGER" property="fromUid"/>
+        <result column="to_uid" jdbcType="INTEGER" property="toUid"/>
+
+        <association property="user" javaType="com.yu.st.bean.User">
+            <id column="user_id" jdbcType="INTEGER" property="id"/>
+            <result column="username" jdbcType="VARCHAR" property="username"/>
+            <result column="password" jdbcType="VARCHAR" property="password"/>
+            <result column="flag" jdbcType="INTEGER" property="flag"/>
+            <result column="phone" jdbcType="VARCHAR" property="phone"/>
+            <result column="regtime" jdbcType="TIMESTAMP" property="regtime"/>
+            <result column="avatar" jdbcType="VARCHAR" property="avatar"/>
+            <result column="sex" jdbcType="INTEGER" property="sex"/>
+
+        </association>
     </resultMap>
     <sql id="Base_Column_List">
-        id, user_id, reply_type, comment_id, content
+        id, comment_id, reply_id, reply_type, content, from_uid, to_uid
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
@@ -17,73 +31,101 @@
         from reply
         where id = #{id,jdbcType=INTEGER}
     </select>
+    <select id="selectByCommentId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT `user`.username,
+               `user`.avatar,
+               reply.*
+        FROM reply,
+             `user`
+        where comment_id = #{id,jdbcType=INTEGER}
+    </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete
         from reply
         where id = #{id,jdbcType=INTEGER}
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yu.st.bean.Reply" useGeneratedKeys="true">
-        insert into reply (user_id, reply_type, comment_id,
-                           content)
-        values (#{userId,jdbcType=INTEGER}, #{replyType,jdbcType=INTEGER}, #{commentId,jdbcType=INTEGER},
-                #{content,jdbcType=VARCHAR})
+        insert into reply (comment_id, reply_id, reply_type,
+                           content, from_uid, to_uid)
+        values (#{commentId,jdbcType=INTEGER}, #{replyId,jdbcType=INTEGER}, #{replyType,jdbcType=INTEGER},
+                #{content,jdbcType=VARCHAR}, #{fromUid,jdbcType=INTEGER}, #{toUid,jdbcType=INTEGER})
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yu.st.bean.Reply"
             useGeneratedKeys="true">
         insert into reply
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                user_id,
+            <if test="commentId != null">
+                comment_id,
+            </if>
+            <if test="replyId != null">
+                reply_id,
             </if>
             <if test="replyType != null">
                 reply_type,
             </if>
-            <if test="commentId != null">
-                comment_id,
-            </if>
             <if test="content != null">
                 content,
             </if>
+            <if test="fromUid != null">
+                from_uid,
+            </if>
+            <if test="toUid != null">
+                to_uid,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                #{userId,jdbcType=INTEGER},
+            <if test="commentId != null">
+                #{commentId,jdbcType=INTEGER},
+            </if>
+            <if test="replyId != null">
+                #{replyId,jdbcType=INTEGER},
             </if>
             <if test="replyType != null">
                 #{replyType,jdbcType=INTEGER},
             </if>
-            <if test="commentId != null">
-                #{commentId,jdbcType=INTEGER},
-            </if>
             <if test="content != null">
                 #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="fromUid != null">
+                #{fromUid,jdbcType=INTEGER},
+            </if>
+            <if test="toUid != null">
+                #{toUid,jdbcType=INTEGER},
             </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.yu.st.bean.Reply">
         update reply
         <set>
-            <if test="userId != null">
-                user_id = #{userId,jdbcType=INTEGER},
+            <if test="commentId != null">
+                comment_id = #{commentId,jdbcType=INTEGER},
+            </if>
+            <if test="replyId != null">
+                reply_id = #{replyId,jdbcType=INTEGER},
             </if>
             <if test="replyType != null">
                 reply_type = #{replyType,jdbcType=INTEGER},
             </if>
-            <if test="commentId != null">
-                comment_id = #{commentId,jdbcType=INTEGER},
-            </if>
             <if test="content != null">
                 content = #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="fromUid != null">
+                from_uid = #{fromUid,jdbcType=INTEGER},
+            </if>
+            <if test="toUid != null">
+                to_uid = #{toUid,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.yu.st.bean.Reply">
         update reply
-        set user_id    = #{userId,jdbcType=INTEGER},
+        set comment_id = #{commentId,jdbcType=INTEGER},
+            reply_id   = #{replyId,jdbcType=INTEGER},
             reply_type = #{replyType,jdbcType=INTEGER},
-            comment_id = #{commentId,jdbcType=INTEGER},
-            content    = #{content,jdbcType=VARCHAR}
+            content    = #{content,jdbcType=VARCHAR},
+            from_uid   = #{fromUid,jdbcType=INTEGER},
+            to_uid     = #{toUid,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

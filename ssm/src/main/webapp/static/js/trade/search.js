@@ -1,52 +1,51 @@
-querypage(1);
+layui.use(['layer', 'laypage'], function () {
+    var laypage = layui.laypage;
+    var layer = layui.laypage
 
-function querypage(currpage) {
-    var pageInfo = {'curr': currpage, 'keyword': keyword}
+    getItems(1);
 
-    $.ajax({
-        type: 'POST',
-        url: `${api}/items/gets`,
-        dataType: 'json',
-        async: true,
-        data: pageInfo,
-        success: function (resp) {
-            // console.log(data);
-            $.each(resp.data.items, function (index, val) {
-                // console.log(val);
-                $("#items").append(gethtmlitem(val));
-            })
-            if (resp.code != 0) {
-                layui.use('layer', function () {
-                    layui.layer.msg(resp.msg);
+    function getItems(curPage) {
+        var pageInfo = {'curr': curPage, 'keyword': keyword}
+
+        $.ajax({
+            type: 'POST',
+            url: `${api}/items/gets`,
+            dataType: 'json',
+            async: true,
+            data: pageInfo,
+            success: function (res) {
+                // console.log(data);
+                $.each(res.data.items, function (index, val) {
+                    $("#items").append(insertItem(val));
                 })
-            }
-            layui.use('laypage', function () {
-                var laypage = layui.laypage;
+                if (res.code !== 0) {
+                    layer.msg(res.msg);
+                }
+
                 //执行一个laypage实例
                 laypage.render({
                     elem: 'page' //注意，这里的 test1 是 ID，不用加 # 号
-                    , count: resp.data.count //数据总数，从服务端得到
-                    , curr: currpage
-                    // ,limit: resp.data.pageinfo.limit
+                    , count: res.data.count //数据总数，从服务端得到
+                    , curr: curPage
+                    // ,limit: res.data.pageinfo.limit
                     , jump: function (obj, first) {
                         // console.log(obj.curr)
                         // console.log(obj.limit)
                         if (!first) {
                             $("#items").empty();
-                            querypage(obj.curr);
+                            getItems(obj.curr);
                         }
                     }
                 });
-            })
-        }
+            }
 
 
-    });
-}
+        });
+    }
 
 
-function gethtmlitem(item) {
-    return `
+    function insertItem(item) {
+        return `
 <a href="detail/${item.id}" class="goodsitem">
     <div class="goods">
         <div class="item">
@@ -55,10 +54,11 @@ function gethtmlitem(item) {
             <p class="item-price"><span>包邮</span>￥${item.price}</p>
             <div class="user"> 
                 <img src="${upload}/${item.user.avatar}" alt="头像" class="touxiang"> 
-                <p style="line-height: 40px;">${item.user.username}</p>
+                <p class="username">${item.user.username}</p>
             </div>            
         </div>
     </div>
 </a>`
 
-}
+    }
+})

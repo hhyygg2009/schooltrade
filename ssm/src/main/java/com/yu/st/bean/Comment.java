@@ -1,7 +1,6 @@
 package com.yu.st.bean;
 
 import lombok.Data;
-import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 
@@ -11,15 +10,18 @@ import java.io.Serializable;
  * @author
  */
 @Data
-@Component
 public class Comment implements Serializable {
     private Integer id;
 
-    private Integer itemId;
+    private Integer topicId;
 
-    private Integer userId;
+    private Integer topicType;
 
     private String content;
+
+    private Integer fromUid;
+
+    private User user;
 
     private static final long serialVersionUID = 1L;
 }

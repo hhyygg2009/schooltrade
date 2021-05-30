@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class DBUtil {
-    private static final String resource = "mybatis-config.xml";
+    private static final String RESOURCE = "mybatis-config.xml";
     private static SqlSessionFactory sqlSessionFactory;
 
     static {
@@ -21,7 +21,7 @@ public class DBUtil {
     }
 
     public static void getSqlSessionFactory() throws IOException {
-        InputStream inputStream = Resources.getResourceAsStream(resource);
+        InputStream inputStream = Resources.getResourceAsStream(RESOURCE);
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     }
 

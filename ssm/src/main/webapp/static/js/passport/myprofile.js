@@ -44,38 +44,34 @@ layui.use('upload', function () {
 })
 
 
-function insert(data) {
-    $.ajax({
-        type: 'POST',
-        url: `/passport/user`,
-        dataType: 'json',
-        async: true,
-        data: {"user": data},
-        success: function (res) {
-            console.log(res);
-            if (res.code === 0) {
-                window.location.href = "myprofile";
-            } else {
-                layui.use('layer', function () {
-                    layui.layer.msg(res.msg);
-                })
-            }
+layui.use(['layer', 'form'], function () {
+    var layer = layui.layer
+        , form = layui.form;
 
-        }
-
-    })
-}
-
-//Demo
-layui.use('form', function () {
-    var form = layui.form;
     form.on('submit(*)', function (data) {
-        console.log(data);
-        console.log(JSON.stringify(data.field));
+        // console.log(data);
+        // console.log(JSON.stringify(data.field));
         insert(JSON.stringify(data.field));
         return false;
 
     })
 
+    function insert(data) {
+        $.ajax({
+            type: 'POST',
+            url: `${api}/users/update`,
+            dataType: 'json',
+            async: true,
+            data: {"user": data},
+            success: function (res) {
+                // console.log(res);
+                if (res.code === 0) {
+                    window.location.href = "myprofile";
+                } else {
+                    layer.msg(res.msg);
+                }
+            }
 
+        })
+    }
 });

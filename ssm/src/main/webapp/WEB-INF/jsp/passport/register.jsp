@@ -11,7 +11,6 @@
 <head>
     <meta charset="utf-8">
     <title>用户注册</title>
-    <link rel="stylesheet" href="/static/css/register.css">
 
 </head>
 
@@ -79,8 +78,10 @@
         <div class="layui-form-item">
             <label class="layui-form-label">手机号码</label>
             <div class="layui-input-block">
-                <p class="input-box"><input type="text" name="phone" required lay-verify="required|phone"
-                                            placeholder="请输入手机号码" autocomplete="off" class="layui-input"></p>
+                <p class="input-box">
+                    <input type="text" name="phone" required lay-verify="required|phone" placeholder="请输入手机号码"
+                           autocomplete="off" class="layui-input">
+                </p>
             </div>
         </div>
 
@@ -93,7 +94,7 @@
                                placeholder="请输入验证码"
                                autocomplete="off" class="layui-input">
                     </div>
-                    <img id="code" onclick="reloadcode()" src="/passport/code" alt="">
+                    <img id="code" onclick="reloadcode()" src="/passport/code" alt="captcha">
                 </div>
             </div>
         </div>
@@ -109,5 +110,7 @@
 </body>
 
 <script src="/static/js/passport/register.js"></script>
+<script src="/static/js/passport/code.js"></script>
+<link rel="stylesheet" href="/static/css/register.css">
 
 </html>

@@ -1,11 +1,9 @@
 package com.yu.st;
 
-import lombok.Getter;
 import org.mybatis.spring.annotation.MapperScan;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @author :hhyygg2009
@@ -18,10 +16,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 //@ComponentScan(basePackages = "com.yu.st")
 @MapperScan("com.yu.st.dao")
 @SpringBootApplication
+@EnableCaching
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
-
 }
