@@ -118,6 +118,30 @@
 
         order by item.id desc
     </select>
+    <select id="selectByKeywordSelected" resultMap="BaseResultMap">
+        select item.*,
+        user.*,
+        conditions.name conditionsname,
+        category.name categoryname,
+        state.name statename
+        from item,
+        user,
+        conditions,
+        category,
+        state
+        where item.name like concat('%', #{keyword}, '%')
+        and item.user_id = user.id
+        and item.category_id = category.id
+        and item.conditions_id = conditions.id
+        and item.state_id = state.id
+
+        <foreach collection="select" index="key" item="value">
+            <if test="value != ''">
+                and item.${key} in (${value})
+            </if>
+        </foreach>
+        order by item.id desc
+    </select>
 
     <select id="selectByKeywordcount" resultType="integer">
         select count(*) as count

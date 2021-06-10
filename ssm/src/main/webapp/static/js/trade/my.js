@@ -113,6 +113,7 @@ layui.use(['laypage', 'layer', 'form'], function () {
     }
 
     $(document).on("click","a.delete",function (){
+        // console.log($(this))
         if (confirm("是否删除")) {
             itemOper(this.dataset.id, 'delete')
         } else {

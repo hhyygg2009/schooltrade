@@ -21,7 +21,10 @@
                 <input type="text" name="key" id="search" value="${key}" placeholder="搜   索" autocomplete="off"/>
                 <input type="submit" id="searchbtn" value="搜         索" class="searchbtn"/>
             </form>
+            <div id="layfilter" lay-filter="layfilter"></div>
+            <button class="layui-btn layui-btn-primary" id="getvalBtn">获取选中值</button>
         </div>
+
         <div class="shelves layui-row" id="items">
             <!--插入物品-->
         </div>
@@ -33,9 +36,6 @@
 </body>
 
 <link rel="stylesheet" href="/static/css/search.css">
-<script>
-    var keyword = "${key}"
-</script>
 <script src="/static/js/trade/search.js"></script>
 
 </html>

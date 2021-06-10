@@ -13,20 +13,23 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class Paged {
 
-    private int pageNum=1;
-    private int pageSize=10;
-    /*限制页面最大显示数量*/
-    private int pageSizeLimit=100;
+    private int pageNum = 1;
+    private int pageSize = 10;
+    /**
+     * 限制页面最大显示数量
+     */
+    private int pageSizeLimit = 100;
 
 
     public Integer getStartIndex() {
         return pageSize * (pageNum - 1);
     }
-    public Integer getEndIndex(){
-        return this.getStartIndex()+pageSize;
+
+    public Integer getEndIndex() {
+        return this.getStartIndex() + pageSize;
     }
 
-    public Integer getPageSize(){
+    public Integer getPageSize() {
         return Math.min(pageSize, pageSizeLimit);
     }
 

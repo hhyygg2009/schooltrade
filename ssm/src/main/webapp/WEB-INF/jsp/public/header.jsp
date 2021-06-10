@@ -13,6 +13,8 @@
 <script src="/static/layui/layui.js"></script>
 <script src="/static/js/public/jquery-3.4.1.min.js"></script>
 <script src="/static/js/public/header.js"></script>
+<script src="/static/js/public/util.js"></script>
+
 
 <style>
     * {

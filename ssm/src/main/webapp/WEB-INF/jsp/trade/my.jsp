@@ -93,7 +93,6 @@
         </div>
 
 
-        <script src="/static/js/public/util.js"></script>
         <script src="/static/js/trade/my.js"></script>
 
 

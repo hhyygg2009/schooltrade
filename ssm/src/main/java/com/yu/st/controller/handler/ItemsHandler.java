@@ -1,5 +1,6 @@
 package com.yu.st.controller.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.yu.st.bean.Category;
 import com.yu.st.bean.Condition;
 import com.yu.st.bean.Item;
@@ -15,6 +16,7 @@ import com.yu.st.dao.UserDao;
 import com.yu.st.service.impl.ItemService;
 import com.yu.st.service.impl.UserService;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,24 +37,29 @@ public class ItemsHandler {
     private final CategoryDao categoryDao;
     private final UserDao userDao;
 
-    @Cacheable(cacheNames = "ItemGets", key = "#keyword+'-'+#paged.pageNum+'-'+#paged.pageSize+'-'+#paged.pageSizeLimit")
+    //    @Cacheable(cacheNames = "ItemGets", key = "#keyword+'-'+#paged.pageNum+'-'+#paged.pageSize+'-'+#paged.pageSizeLimit")
     @RequestMapping("/gets")
-    public Message items(@RequestParam(required = false) String keyword,
-                         Paged paged,
-                         SelectedItem selectedItem) {
+    public Message items(Paged paged,
+                         @RequestParam(required = false) String keyword,
+                         @RequestParam(name = "selectedItem", required = false) String selectedItemStr) {
 
         //分页
         //分页查询:物品总数
         Integer count;
         List<Item> items;
+        SelectedItem selectedItem = JSON.parseObject(selectedItemStr, SelectedItem.class);
 
-        if (keyword != null) {
+        if (selectedItem != null) {
+            count = itemDao.selectByKeywordcount(keyword);
+            items = itemDao.selectByKeywordSelected(keyword, paged.getStartIndex(), paged.getPageSize(), selectedItem.getValues());
+        } else if (!StringUtils.isEmpty(keyword)) {
             count = itemDao.selectByKeywordcount(keyword);
             items = itemDao.selectByKeyword(keyword, paged.getStartIndex(), paged.getPageSize());
         } else {
             count = itemDao.selectAllCount();
             items = itemDao.getAllItem(paged.getStartIndex(), paged.getPageSize());
         }
+        System.out.println(selectedItem);
 
         return Message.success()
                 .addData("count", count)
@@ -110,8 +117,8 @@ public class ItemsHandler {
         List<Category> categories = categoryDao.selectAll();
         List<Condition> conditions = conditionsDao.selectAll();
 
-        dataList.add(new FormItem("类别", "category", FormItem.CHECKBOX, categories));
-        dataList.add(new FormItem("状态", "conditions", FormItem.RADIO, conditions));
+        dataList.add(new FormItem("类别", "category_id", FormItem.CHECKBOX, categories));
+        dataList.add(new FormItem("状态", "conditions_id", FormItem.CHECKBOX, conditions));
 
         return Message
                 .success()

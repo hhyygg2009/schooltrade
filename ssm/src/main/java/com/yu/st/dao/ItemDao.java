@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface ItemDao {
@@ -18,11 +19,12 @@ public interface ItemDao {
     Item selectByPrimaryKey(Integer id);
     Item selectUserOwnItem(@Param("id") Integer id,@Param("userid")Integer userid);
 
-
     List<Item> getAllItem(@Param("start") Integer start, @Param("limit") Integer limit);
 
-
     List<Item> selectByKeyword(@Param("keyword") String keyword, @Param("start") Integer start, @Param("limit") Integer limit);
+
+    List<Item> selectByKeywordSelected(@Param("keyword") String keyword, @Param("start") Integer start, @Param("limit") Integer limit, @Param("select") Map<String, String> select);
+
     Integer selectByKeywordcount(@Param("keyword") String keyword);
 
     List<Item> selectByUserId(@Param("id") Integer id, @Param("start") Integer start, @Param("limit") Integer limit);

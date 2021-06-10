@@ -1,22 +1,20 @@
+/*商品介绍*/
 
+
+/*轮播图*/
 #carousel img {
     width: 100%;
     height: 100%;
 }
 
-.iteminfo {
-    margin: 50px;
+/*商品信息*/
+.iteminfo .layui-row {
+    margin-bottom: 26px;
 }
 
-.iteminfo td, .iteminfo tr {
-    padding: 10px;
-    /*border: 1px solid ;*/
-}
-
+/*图片展示*/
 .imgbox {
     /*float: left;*/
-
-
 }
 
 .imgbox img {
@@ -26,8 +24,13 @@
 
 }
 
+/*图片展示结束*/
+
+/*商品-用户信息*/
 .user {
     background: #f8f8f8;
+    height: 100%;
+    width: 100%;
 }
 
 .user .user-img {
@@ -42,6 +45,32 @@
     text-align: center;
 }
 
+
+.user .user-trade .title {
+    font-weight: bold;
+}
+
+.user .user-trade .detail {
+    float: right;
+    color: red;
+}
+
+.user .user-infocard .broder {
+    border-right: 2px gray solid;
+}
+
+.user-selling {
+    display: inline-block;
+    width: 30%;
+}
+
+.user .user-infocard .user-selling-num {
+
+}
+
+/*商品-用户信息结束*/
+
+/*商品信息*/
 .iteminfo-contact {
     display: inline-block;
     width: 72px;
@@ -52,22 +81,28 @@
     color: white;
 }
 
-.user-selling {
-
-}
-
-.user-selling {
+.iteminfo-buy {
     display: inline-block;
-    border-right: 2px gray solid;
+    width: 72px;
+    height: 24px;
+    padding: 16px 44px;
+    border: 1px solid red;
+    border-radius: 5px;
 
+    color: red;
 }
 
-.user-selling-num {
-
+.info-tips {
+    display: inline-block;
+    color: #ffa559;
+    padding: 4px 8px;
+    border: 1px solid #ffa559;
+    border-radius: 3px;
+    margin-right: 28px;
 }
 
+/*商品详细介绍*/
 .shop-detail {
-    background: #EEE;
 }
 
 .shop-detail .user-img {
@@ -82,6 +117,17 @@
     display: inline-block;
 }
 
+.shop-detail .item-info {
+    font-size: 16px;
+    padding: 34px 16px;
+    background: #f8f8f8;
+    border: 1px solid #eeeeee;
+    border-radius: 3px;
+    margin-top: 16px;
+    position: relative;
+}
+
+/*留言*/
 .avatar {
     height: 50px;
     width: 50px;
@@ -94,3 +140,5 @@
     border-left: 2px solid #f5f6f7;
 
 }
+
+/*商品详细介绍结束*/

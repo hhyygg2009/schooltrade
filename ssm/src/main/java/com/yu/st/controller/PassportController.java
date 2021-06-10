@@ -1,7 +1,6 @@
 package com.yu.st.controller;
 
 import com.yu.st.bean.User;
-import com.yu.st.dao.UserDao;
 import com.yu.st.service.impl.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;

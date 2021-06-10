@@ -14,8 +14,8 @@ import org.springframework.cache.annotation.EnableCaching;
  * @version:
  */
 //@ComponentScan(basePackages = "com.yu.st")
-@MapperScan("com.yu.st.dao")
 @SpringBootApplication
+@MapperScan("com.yu.st.dao")
 @EnableCaching
 public class Application {
     public static void main(String[] args) {
